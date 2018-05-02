@@ -28,9 +28,9 @@ import { ReplaySubject } from "rxjs/ReplaySubject";
 import config from "../../config";
 import { getLeftSizeOfRange, getRange } from "../../utils/ranges";
 
-// Informations recuperated on the video element on each clock
+// Informations recuperated on the media element on each clock
 // tick
-interface IVideoInfos {
+export interface IMediaElementInfos {
   bufferGap : number;
   buffered : TimeRanges;
   currentRange : {
@@ -47,14 +47,14 @@ interface IVideoInfos {
   state : string;
 }
 
-type stalledStatus = {
+export type IMediaElementStalledStatus = {
   reason : "seeking" | "not-ready" | "buffering";
   timestamp : number;
 } | null;
 
 // Global informations emitted on each clock tick
-export interface IClockTick extends IVideoInfos {
-  stalled : stalledStatus;
+export interface IClockTick extends IMediaElementInfos {
+  stalled : IMediaElementStalledStatus;
 }
 
 const {
@@ -88,7 +88,7 @@ const SCANNED_VIDEO_EVENTS = [
  * @param {Object|null} stalled
  * @returns {Number}
  */
-function getResumeGap(stalled : stalledStatus) : number {
+function getResumeGap(stalled : IMediaElementStalledStatus) : number {
   if (!stalled) {
     return 0;
   }
@@ -133,7 +133,7 @@ function isEnding(
 function getVideoInfos(
   video : HTMLMediaElement,
   currentState : string
-) : IVideoInfos {
+) : IMediaElementInfos {
   const {
     buffered,
     currentTime,
@@ -174,9 +174,9 @@ function getVideoInfos(
  */
 function getStalledStatus(
   prevTimings : IClockTick,
-  currentTimings : IVideoInfos,
+  currentTimings : IMediaElementInfos,
   withMediaSource : boolean
-) : stalledStatus {
+) : IMediaElementStalledStatus {
   const {
     state: currentState,
     currentTime,

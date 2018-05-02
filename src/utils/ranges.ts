@@ -32,7 +32,7 @@
 // Factor for rounding errors
 const EPSILON = 1 / 60;
 
-interface IRange {
+export interface IRange {
   start : number;
   end : number;
 }

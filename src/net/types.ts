@@ -83,7 +83,7 @@ export interface ILoaderProgress {
 }
 
 // items emitted by net/ pipelines' loaders on xhr response events
-interface ILoaderData<T> {
+export interface ILoaderData<T> {
   type : "data";
   value : {
     responseData: T;
@@ -158,7 +158,7 @@ export type ImageParserObservable = Observable<{
   segmentInfos : ISegmentTimingInfos|null;
 }>;
 
-interface ITransportManifestPipeline {
+export interface ITransportManifestPipeline {
   // TODO Remove resolver
   resolver?: (x : IManifestLoaderArguments) =>
     Observable<IManifestLoaderArguments>;
@@ -168,16 +168,19 @@ interface ITransportManifestPipeline {
     IManifestParserObservable;
 }
 
-interface ITransportSegmentPipelineBase<T> {
-  loader : (x : ISegmentLoaderArguments) => ILoaderObservable<T>;
-  parser: (x : ISegmentParserArguments<T>) => SegmentParserObservable;
+export interface ITransportAudioSegmentPipeline {
+  loader : (x : ISegmentLoaderArguments) =>
+    ILoaderObservable<Uint8Array|ArrayBuffer>;
+  parser: (x : ISegmentParserArguments<Uint8Array|ArrayBuffer>) =>
+    SegmentParserObservable;
 }
 
-export type ITransportVideoSegmentPipeline =
-  ITransportSegmentPipelineBase<Uint8Array|ArrayBuffer>;
-
-export type ITransportAudioSegmentPipeline =
-  ITransportSegmentPipelineBase<Uint8Array|ArrayBuffer>;
+export interface ITransportVideoSegmentPipeline {
+  loader : (x : ISegmentLoaderArguments) =>
+    ILoaderObservable<Uint8Array|ArrayBuffer>;
+  parser: (x : ISegmentParserArguments<Uint8Array|ArrayBuffer>) =>
+    SegmentParserObservable;
+}
 
 export interface ITransportTextSegmentPipeline {
   // Note: The segment's data can be null for init segments

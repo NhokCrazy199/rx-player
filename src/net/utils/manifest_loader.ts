@@ -27,10 +27,11 @@ import {
  * Manifest loader triggered if there was no custom-defined one in the API.
  * @param {string} url
  */
+// TODO this should be provided by the concerned tranport type
 function regularManifestLoader(
   url: string,
   ignoreProgressEvents?: true
-) {
+) : ILoaderObservable<Document|string> {
   return request({
     url,
     responseType: "document",
@@ -43,11 +44,13 @@ function regularManifestLoader(
  * @param {Function} [customManifestLoader]
  * @returns {Function}
  */
-const manifestPreLoader = (
+// TODO Rename to something like callCustomManifestLoader and re-purpose this function
+export default function generateManifestLoader(
   options: {
     customManifestLoader?: CustomManifestLoader;
     ignoreProgressEvents?: true;
-  }) => (url: string) : ILoaderObservable<Document|string> => {
+}) : (url: string) => ILoaderObservable<Document|string> {
+  return (url : string) => {
     const { customManifestLoader, ignoreProgressEvents } = options;
     if (!customManifestLoader) {
       return regularManifestLoader(url, ignoreProgressEvents);
@@ -112,6 +115,5 @@ const manifestPreLoader = (
         }
       };
     });
-};
-
-export default manifestPreLoader;
+  };
+}

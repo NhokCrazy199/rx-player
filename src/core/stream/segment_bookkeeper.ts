@@ -45,18 +45,16 @@ const {
  */
 // const SEGMENT_EPSILON = 0.3;
 
-interface IBufferedSegmentInfos {
-  adaptation : Adaptation;
-  period : Period;
-  representation : Representation;
-  segment : ISegment;
-}
-
-interface IBufferedSegment {
+export interface ISBBufferedSegmentInfos {
   bufferedEnd : number|undefined;
   bufferedStart : number|undefined;
   end : number;
-  infos : IBufferedSegmentInfos;
+  infos : {
+    adaptation : Adaptation;
+    period : Period;
+    representation : Representation;
+    segment : ISegment;
+  };
   start : number;
 }
 
@@ -69,7 +67,7 @@ interface IBufferedSegment {
  * @class SegmentBookkeeper
  */
 export default class SegmentBookkeeper {
-  public inventory : IBufferedSegment[];
+  public inventory : ISBBufferedSegmentInfos[];
 
   constructor() {
     /**
@@ -517,7 +515,7 @@ export default class SegmentBookkeeper {
       duration : number;
       timescale : number;
     }
-  ) : IBufferedSegment|null {
+  ) : ISBBufferedSegmentInfos|null {
     const {
       time,
       duration,
@@ -569,9 +567,9 @@ export default class SegmentBookkeeper {
      * @returns {Boolean}
      */
     function hasEnoughInfos(
-      currentSegmentI : IBufferedSegment,
-      prevSegmentI : IBufferedSegment,
-      nextSegmentI : IBufferedSegment
+      currentSegmentI : ISBBufferedSegmentInfos,
+      prevSegmentI : ISBBufferedSegmentInfos,
+      nextSegmentI : ISBBufferedSegmentInfos
     ) : boolean {
       if ((prevSegmentI && prevSegmentI.bufferedEnd == null) ||
         currentSegmentI.bufferedStart == null
@@ -600,9 +598,9 @@ export default class SegmentBookkeeper {
         start : number;
         end : number;
       },
-      currentSegmentI : IBufferedSegment,
-      prevSegmentI : IBufferedSegment,
-      nextSegmentI : IBufferedSegment
+      currentSegmentI : ISBBufferedSegmentInfos,
+      prevSegmentI : ISBBufferedSegmentInfos,
+      nextSegmentI : ISBBufferedSegmentInfos
     ) : boolean {
       if (
         !prevSegmentI ||

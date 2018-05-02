@@ -215,7 +215,8 @@ function sessionEventsHandler(
         const sessionEvent = createSessionEvent(
           "session-update", session, { updatedWith: res });
         return castToObservable(
-          session.update(res)
+          // TODO What the f typescript. Just let it happen
+          (session as MediaKeySession).update(res)
         )
           .catch((error) => {
             throw new EncryptedMediaError("KEY_UPDATE_ERROR", error, true);
@@ -300,7 +301,8 @@ function createSessionAndKeyRequest(
   log.debug("eme: generate request", initDataType, initData);
 
   const generateRequest = castToObservable(
-    session.generateRequest(initDataType, initData)
+    // TODO What the f typescript. Just let it happen
+    (session as MediaKeySession).generateRequest(initDataType, initData)
   )
     .catch((error) => {
       throw new EncryptedMediaError("KEY_GENERATE_REQUEST_ERROR", error, false);

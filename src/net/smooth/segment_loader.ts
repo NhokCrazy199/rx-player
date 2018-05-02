@@ -37,10 +37,6 @@ const {
   createAudioInitSegment,
 } = mp4Utils;
 
-interface IRegularSegmentLoaderArguments extends ISegmentLoaderArguments {
-  url : string;
-}
-
 /**
  * Segment loader triggered if there was no custom-defined one in the API.
  * @param {Object} opt
@@ -49,7 +45,7 @@ interface IRegularSegmentLoaderArguments extends ISegmentLoaderArguments {
  * @returns {Observable}
  */
 function regularSegmentLoader(
-  { url, segment } : IRegularSegmentLoaderArguments
+  { url, segment } : { url : string; segment : any } // TODO
 ) : ILoaderObservable<ArrayBuffer> {
   let headers;
   const range = segment.range;
@@ -66,131 +62,136 @@ function regularSegmentLoader(
   });
 }
 
+export type ISmoothSegmentLoader =
+  (args : ISegmentLoaderArguments) => ILoaderObservable<Uint8Array|ArrayBuffer>;
+
 /**
  * Defines the url for the request, load the right loader (custom/default
  * one).
  */
-const generateSegmentLoader = (
+function generateSegmentLoader(
   customSegmentLoader? : CustomSegmentLoader
-) => ({
-  segment,
-  representation,
-  adaptation,
-  period,
-  manifest,
-  init,
-} : ISegmentLoaderArguments) : ILoaderObservable<Uint8Array|ArrayBuffer> => {
-  if (segment.isInit) {
-    if (!segment.privateInfos || segment.privateInfos.type !== "smooth-init") {
-      throw new Error("Smooth: Invalid segment format");
-    }
-    let responseData : Uint8Array;
-    const privateInfos = segment.privateInfos;
-    const protection = privateInfos.protection;
-
-    switch (adaptation.type) {
-    case "video":
-      responseData = createVideoInitSegment(
-        segment.timescale,
-        representation.width || 0,
-        representation.height || 0,
-        72, 72, 4, // vRes, hRes, nal
-        privateInfos.codecPrivateData,
-        protection && protection.keyId,     // keyId
-        protection && protection.keySystems // pssList
-      );
-      break;
-    case "audio":
-      responseData = createAudioInitSegment(
-        segment.timescale,
-        privateInfos.channels || 0,
-        privateInfos.bitsPerSample || 0,
-        privateInfos.packetSize || 0,
-        privateInfos.samplingRate || 0,
-        privateInfos.codecPrivateData,
-        protection && protection.keyId,     // keyId
-        protection && protection.keySystems // pssList
-      );
-      break;
-    default:
-      if (__DEV__) {
-        assert(false, "responseData should have been set");
+) : ISmoothSegmentLoader {
+  return ({
+    segment,
+    representation,
+    adaptation,
+    period,
+    manifest,
+    init,
+  } : ISegmentLoaderArguments) : ILoaderObservable<Uint8Array|ArrayBuffer> => {
+    if (segment.isInit) {
+      if (!segment.privateInfos || segment.privateInfos.type !== "smooth-init") {
+        throw new Error("Smooth: Invalid segment format");
       }
-      responseData = new Uint8Array(0);
+      let responseData : Uint8Array;
+      const privateInfos = segment.privateInfos;
+      const protection = privateInfos.protection;
+
+      switch (adaptation.type) {
+      case "video":
+        responseData = createVideoInitSegment(
+          segment.timescale,
+          representation.width || 0,
+          representation.height || 0,
+          72, 72, 4, // vRes, hRes, nal
+          privateInfos.codecPrivateData,
+          protection && protection.keyId,     // keyId
+          protection && protection.keySystems // pssList
+        );
+        break;
+      case "audio":
+        responseData = createAudioInitSegment(
+          segment.timescale,
+          privateInfos.channels || 0,
+          privateInfos.bitsPerSample || 0,
+          privateInfos.packetSize || 0,
+          privateInfos.samplingRate || 0,
+          privateInfos.codecPrivateData,
+          protection && protection.keyId,     // keyId
+          protection && protection.keySystems // pssList
+        );
+        break;
+      default:
+        if (__DEV__) {
+          assert(false, "responseData should have been set");
+        }
+        responseData = new Uint8Array(0);
+      }
+
+      return Observable.of({
+        type: "data" as "data", // :/ TS Bug or I'm going insane?
+        value: { responseData },
+      });
     }
+    else {
+      const url = buildSegmentURL(
+        resolveURL(representation.baseURL),
+        representation,
+        segment
+      );
 
-    return Observable.of({
-      type: "data" as "data", // :/ TS Bug or I'm going insane?
-      value: { responseData },
-    });
-  }
-  else {
-    const url = buildSegmentURL(
-      resolveURL(representation.baseURL),
-      representation,
-      segment
-    );
+      const args = {
+        adaptation,
+        init,
+        manifest,
+        period,
+        representation,
+        segment,
+        transport: "smooth",
+        url,
+      };
 
-    const args = {
-      adaptation,
-      init,
-      manifest,
-      period,
-      representation,
-      segment,
-      transport: "smooth",
-      url,
-    };
+      if (!customSegmentLoader) {
+        return regularSegmentLoader(args);
+      }
 
-    if (!customSegmentLoader) {
-      return regularSegmentLoader(args);
+      return Observable.create((obs : ILoaderObserver<ArrayBuffer|Uint8Array>) => {
+        let hasFinished = false;
+        let hasFallbacked = false;
+
+        const resolve = (_args : {
+          data : ArrayBuffer|Uint8Array;
+          size : number;
+          duration : number;
+        }) => {
+          if (!hasFallbacked) {
+            hasFinished = true;
+            obs.next({
+              type: "response",
+              value: {
+                responseData: _args.data,
+                size: _args.size,
+                duration: _args.duration,
+              },
+            });
+            obs.complete();
+          }
+        };
+
+        const reject = (err = {}) => {
+          if (!hasFallbacked) {
+            hasFinished = true;
+            obs.error(err);
+          }
+        };
+
+        const fallback = () => {
+          hasFallbacked = true;
+          regularSegmentLoader(args).subscribe(obs);
+        };
+
+        const callbacks = { reject, resolve, fallback };
+        const abort = customSegmentLoader(args, callbacks);
+
+        return () => {
+          if (!hasFinished && !hasFallbacked && typeof abort === "function") {
+            abort();
+          }
+        };
+      });
     }
-
-    return Observable.create((obs : ILoaderObserver<ArrayBuffer|Uint8Array>) => {
-      let hasFinished = false;
-      let hasFallbacked = false;
-
-      const resolve = (_args : {
-        data : ArrayBuffer|Uint8Array;
-        size : number;
-        duration : number;
-      }) => {
-        if (!hasFallbacked) {
-          hasFinished = true;
-          obs.next({
-            type: "response",
-            value: {
-              responseData: _args.data,
-              size: _args.size,
-              duration: _args.duration,
-            },
-          });
-          obs.complete();
-        }
-      };
-
-      const reject = (err = {}) => {
-        if (!hasFallbacked) {
-          hasFinished = true;
-          obs.error(err);
-        }
-      };
-
-      const fallback = () => {
-        hasFallbacked = true;
-        regularSegmentLoader(args).subscribe(obs);
-      };
-
-      const callbacks = { reject, resolve, fallback };
-      const abort = customSegmentLoader(args, callbacks);
-
-      return () => {
-        if (!hasFinished && !hasFallbacked && typeof abort === "function") {
-          abort();
-        }
-      };
-    });
-  }
-};
+  };
+}
 
 export default generateSegmentLoader;

@@ -35,6 +35,9 @@ interface IRegularSegmentLoaderArguments extends ISegmentLoaderArguments {
   url : string;
 }
 
+export type IDASHSegmentLoader =
+  (args : ISegmentLoaderArguments) => ILoaderObservable<Uint8Array|ArrayBuffer>;
+
 /**
  * Segment loader triggered if there was no custom-defined one in the API.
  * @param {Object} opt
@@ -91,103 +94,105 @@ function regularSegmentLoader(
  * @param {Function} [customSegmentLoader]
  * @returns {Function}
  */
-const segmentPreLoader = (customSegmentLoader? : CustomSegmentLoader) => ({
-  adaptation,
-  manifest,
-  period,
-  representation,
-  segment,
-} : ISegmentLoaderArguments) : ILoaderObservable<Uint8Array|ArrayBuffer> => {
-  const {
-    media,
-    range,
-    indexRange,
-    isInit,
-  } = segment;
-
-  // init segment without initialization media/range/indexRange:
-  // we do nothing on the network
-  if (isInit && !(media || range || indexRange)) {
-    return Observable.empty();
-  }
-
-  // construct url for the segment
-  const path = media ? replaceTokens(media, segment, representation) : "";
-  const url = resolveURL(representation.baseURL, path);
-
-  const args = {
+export default function generateSegmentLoader(
+  customSegmentLoader? : CustomSegmentLoader
+)  : IDASHSegmentLoader {
+  return ({
     adaptation,
     manifest,
     period,
     representation,
     segment,
-    transport: "dash",
-    url,
+  } : ISegmentLoaderArguments) : ILoaderObservable<Uint8Array|ArrayBuffer> => {
+    const {
+      media,
+      range,
+      indexRange,
+      isInit,
+    } = segment;
+
+    // init segment without initialization media/range/indexRange:
+    // we do nothing on the network
+    if (isInit && !(media || range || indexRange)) {
+      return Observable.empty();
+    }
+
+    // construct url for the segment
+    const path = media ? replaceTokens(media, segment, representation) : "";
+    const url = resolveURL(representation.baseURL, path);
+
+    const args = {
+      adaptation,
+      manifest,
+      period,
+      representation,
+      segment,
+      transport: "dash",
+      url,
+    };
+
+    if (!customSegmentLoader) {
+      return regularSegmentLoader(args);
+    }
+
+    return Observable.create((obs : ILoaderObserver<Uint8Array|ArrayBuffer>) => {
+      let hasFinished = false;
+      let hasFallbacked = false;
+
+      /**
+       * Callback triggered when the custom segment loader has a response.
+       * @param {Object} args
+       * @param {*} args.data - The segment data
+       * @param {Number} args.size - The segment size
+       * @param {Number} args.duration - The duration of the request, in ms
+       */
+      const resolve = (_args : {
+        data : ArrayBuffer|Uint8Array;
+        size : number;
+        duration : number;
+      }) => {
+        if (!hasFallbacked) {
+          hasFinished = true;
+          obs.next({
+            type: "response",
+            value: {
+              responseData: _args.data,
+              size: _args.size,
+              duration: _args.duration,
+            },
+          });
+          obs.complete();
+        }
+      };
+
+      /**
+       * Callback triggered when the custom segment loader fails
+       * @param {*} [err={}] - The corresponding error encountered
+       */
+      const reject = (err = {}) => {
+        if (!hasFallbacked) {
+          hasFinished = true;
+          obs.error(err);
+        }
+      };
+
+      /**
+       * Callback triggered when the custom segment loader wants to fallback to
+       * the "regular" implementation
+       */
+      const fallback = () => {
+        hasFallbacked = true;
+        regularSegmentLoader(args).subscribe(obs);
+      };
+
+      const callbacks = { reject, resolve, fallback };
+      const abort = customSegmentLoader(args, callbacks);
+
+      return () => {
+        if (!hasFinished && !hasFallbacked && typeof abort === "function") {
+          abort();
+        }
+      };
+    });
   };
-
-  if (!customSegmentLoader) {
-    return regularSegmentLoader(args);
-  }
-
-  return Observable.create((obs : ILoaderObserver<Uint8Array|ArrayBuffer>) => {
-    let hasFinished = false;
-    let hasFallbacked = false;
-
-    /**
-     * Callback triggered when the custom segment loader has a response.
-     * @param {Object} args
-     * @param {*} args.data - The segment data
-     * @param {Number} args.size - The segment size
-     * @param {Number} args.duration - The duration of the request, in ms
-     */
-    const resolve = (_args : {
-      data : ArrayBuffer|Uint8Array;
-      size : number;
-      duration : number;
-    }) => {
-      if (!hasFallbacked) {
-        hasFinished = true;
-        obs.next({
-          type: "response",
-          value: {
-            responseData: _args.data,
-            size: _args.size,
-            duration: _args.duration,
-          },
-        });
-        obs.complete();
-      }
-    };
-
-    /**
-     * Callback triggered when the custom segment loader fails
-     * @param {*} [err={}] - The corresponding error encountered
-     */
-    const reject = (err = {}) => {
-      if (!hasFallbacked) {
-        hasFinished = true;
-        obs.error(err);
-      }
-    };
-
-    /**
-     * Callback triggered when the custom segment loader wants to fallback to
-     * the "regular" implementation
-     */
-    const fallback = () => {
-      hasFallbacked = true;
-      regularSegmentLoader(args).subscribe(obs);
-    };
-
-    const callbacks = { reject, resolve, fallback };
-    const abort = customSegmentLoader(args, callbacks);
-
-    return () => {
-      if (!hasFinished && !hasFallbacked && typeof abort === "function") {
-        abort();
-      }
-    };
-  });
-};
-
-export default segmentPreLoader;
+}

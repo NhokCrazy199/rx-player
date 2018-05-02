@@ -25,8 +25,8 @@ import {
 } from "../../../net/types";
 import generateID from "../../../utils/id";
 import {
-  IABRMetric,
-  IABRRequest
+  IABRMetricEvent,
+  IABRRequestEvent
 } from "../../abr";
 import { IBufferType } from "../../source_buffers";
 import BasePipeline, {
@@ -35,7 +35,7 @@ import BasePipeline, {
   IPipelineOptions,
 } from "../core_pipeline";
 
-interface ISegmentResponseParsed<T> {
+export interface ISegmentResponseParsedAttribute<T> {
   segmentData : T;
   segmentInfos : {
     duration : number;
@@ -46,7 +46,7 @@ interface ISegmentResponseParsed<T> {
 
 // Response that should be emitted by the given Pipeline
 export interface ISegmentResponse<T> {
-  parsed: ISegmentResponseParsed<T>;
+  parsed: ISegmentResponseParsedAttribute<T>;
 }
 
 export type ISegmentFetcher<T> = (
@@ -74,13 +74,13 @@ export type ISegmentFetcher<T> = (
 export default function createSegmentFetcher<T>(
   bufferType : IBufferType,
   transport : ITransportPipelines,
-  network$ : Subject<IABRMetric>,
-  requests$ : Subject<Subject<IABRRequest>>,
+  network$ : Subject<IABRMetricEvent>,
+  requests$ : Subject<Subject<IABRRequestEvent>>,
   warning$ : Subject<Error|CustomError>,
   options : IPipelineOptions<ISegmentLoaderArguments, ISegmentResponse<T>>
 ) : ISegmentFetcher<T> {
   const basePipeline$ = BasePipeline(transport[bufferType], options);
-  let request$ : Subject<IABRRequest>|undefined;
+  let request$ : Subject<IABRRequestEvent>|undefined;
   let id : string|undefined;
 
   /**
@@ -175,8 +175,8 @@ export default function createSegmentFetcher<T>(
       .filter((
         arg
       ) : arg is
-        IPipelineData<ISegmentResponseParsed<T>>|
-        IPipelineCache<ISegmentResponseParsed<T>> =>
+        IPipelineData<ISegmentResponseParsedAttribute<T>>|
+        IPipelineCache<ISegmentResponseParsedAttribute<T>> =>
         arg.type === "data" || arg.type === "cache"
       )
 

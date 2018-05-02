@@ -219,7 +219,7 @@ function periodBufferCleared(
   };
 }
 
-function warning(value : Error | CustomError) : IStreamWarningEvent {
+function warning(value : Error) : IStreamWarningEvent {
   return {
     type: "warning",
     value,

@@ -16,8 +16,6 @@
 
 import assert from "./assert";
 
-type TypedArray = Uint8Array | Uint16Array | Uint32Array;
-
 /**
  * Returns Uint8Array from UTF16 string.
  * /!\ Take only the first byte from each UTF16 code.

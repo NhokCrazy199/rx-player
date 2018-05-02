@@ -31,7 +31,7 @@ import {
   getTRAF,
 } from "./read";
 
-interface IISOBMFFKeySystem {
+export interface IISOBMFFKeySystem {
   systemId : string;
   privateData : Uint8Array;
 }

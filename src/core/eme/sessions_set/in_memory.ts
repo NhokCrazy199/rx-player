@@ -25,7 +25,7 @@ import SessionSet from "./abstract";
 import hashInitData from "./hash_init_data";
 
 // Cached data for a single MediaKeySession
-interface ISessionData {
+export interface IInMemorySessionData {
   initData : number;
   session : IMediaKeySession|MediaKeySession;
   eventSubscription : Subscription;
@@ -39,7 +39,7 @@ interface ISessionData {
  * @class InMemorySessionsSet
  * @extends SessionSet
  */
-export default class InMemorySessionsSet extends SessionSet<ISessionData> {
+export default class InMemorySessionsSet extends SessionSet<IInMemorySessionData> {
   /**
    * @returns {MediaKeySession|undefined}
    */
@@ -53,7 +53,7 @@ export default class InMemorySessionsSet extends SessionSet<ISessionData> {
    * @param {Function} func
    * @returns {Object|null}
    */
-  find(func : (x : ISessionData) => boolean) : ISessionData|null {
+  find(func : (x : IInMemorySessionData) => boolean) : IInMemorySessionData|null {
     for (let i = 0; i < this._entries.length; i++) {
       if (func(this._entries[i])) {
         return this._entries[i];

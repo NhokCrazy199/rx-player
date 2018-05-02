@@ -16,16 +16,18 @@
 
 import assert from "../../../../utils/assert";
 
-interface IHTMLCue {
+// Data about a single cue
+export interface IBMHTMLCue {
   start : number;
   end : number;
   element : HTMLElement;
 }
 
-interface ICuesGroup {
+// Data about a segment of cues
+export interface IBMSegment {
   start : number;
   end : number;
-  cues : IHTMLCue[];
+  cues : IBMHTMLCue[];
 }
 
 /**
@@ -79,7 +81,7 @@ function areNearlyEqual(a : number, b : number) : boolean {
  * @param {Number} time
  * @returns {Array.<Object>}
  */
-function getCuesBefore(cues : IHTMLCue[], time : number) : IHTMLCue[] {
+function getCuesBefore(cues : IBMHTMLCue[], time : number) : IBMHTMLCue[] {
   for (let i = 0; i < cues.length; i++) {
     const cue = cues[i];
     if (time < cue.end) {
@@ -95,7 +97,7 @@ function getCuesBefore(cues : IHTMLCue[], time : number) : IHTMLCue[] {
  * @param {Number} time
  * @returns {Array.<Object>}
  */
-function getCuesAfter(cues : IHTMLCue[], time : number) : IHTMLCue[] {
+function getCuesAfter(cues : IBMHTMLCue[], time : number) : IBMHTMLCue[] {
   for (let i = 0; i < cues.length; i++) {
     const cue = cues[i];
     if (time < cue.end) {
@@ -112,10 +114,10 @@ function getCuesAfter(cues : IHTMLCue[], time : number) : IHTMLCue[] {
  * @returns {Array.<Object>}
  */
 function removeCuesInfosBetween(
-  cuesInfos : ICuesGroup,
+  cuesInfos : IBMSegment,
   start : number,
   end : number
-) : [ICuesGroup, ICuesGroup] {
+) : [IBMSegment, IBMSegment] {
   const cuesInfos1 = {
     start: cuesInfos.start,
     end: start,
@@ -136,7 +138,7 @@ function removeCuesInfosBetween(
  * @class TextBufferManager
  */
 export default class TextBufferManager {
-  private _cuesBuffer : ICuesGroup[];
+  private _cuesBuffer : IBMSegment[];
 
   constructor() {
     this._cuesBuffer = [];
@@ -160,7 +162,7 @@ export default class TextBufferManager {
    * @param {Number} time
    * @returns {HTMLElement|undefined} - The cue to display
    */
-  get(time : number) : IHTMLCue|undefined {
+  get(time : number) : IBMHTMLCue|undefined {
     const cuesBuffer = this._cuesBuffer;
 
     // begins at the end as most of the time the player will ask for the last
@@ -253,7 +255,7 @@ export default class TextBufferManager {
    * If those requirements are not met, we could delete some cues when adding
    * a CuesGroup before/after. Find a solution.
    */
-  insert(cues : IHTMLCue[], start : number, end : number) : void {
+  insert(cues : IBMHTMLCue[], start : number, end : number) : void {
     const cuesBuffer = this._cuesBuffer;
     const cuesInfosToInsert = { start, end, cues };
     for (let i = 0; i < cuesBuffer.length; i++) {

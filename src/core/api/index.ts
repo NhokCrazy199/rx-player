@@ -118,7 +118,7 @@ interface IBitrateEstimate {
   bitrate : number|undefined;
 }
 
-type PLAYER_EVENT_STRINGS =
+export type IPlayerEventNames =
   "playerStateChange" |
   "positionUpdate" |
   "audioTrackChange" |
@@ -140,7 +140,7 @@ type PLAYER_EVENT_STRINGS =
  * @class Player
  * @extends EventEmitter
  */
-class Player extends EventEmitter<PLAYER_EVENT_STRINGS, any> {
+class Player extends EventEmitter<IPlayerEventNames, any> {
   /**
    * Current version of the RxPlayer.
    * @type {string}
@@ -1744,7 +1744,7 @@ class Player extends EventEmitter<PLAYER_EVENT_STRINGS, any> {
       this._priv_contentEventsMemory[type] = value;
 
       // SAD
-      this.trigger(type + "Change" as PLAYER_EVENT_STRINGS, value);
+      this.trigger(type + "Change" as IPlayerEventNames, value);
     }
   }
 

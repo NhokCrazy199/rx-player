@@ -34,17 +34,16 @@ let requestMediaKeySystemAccess :
     Observable<MediaKeySystemAccess|CustomMediaKeySystemAccess>
 ) | null;
 
-type MEDIA_KEY_SESSION_EVENTS =
-  string;
-  // "keymessage" |
-  // "message" |
-  // "keyadded" |
-  // "ready" |
-  // "keyerror" |
-  // "error";
+// type MEDIA_KEY_SESSION_EVENTS =
+//   "keymessage" |
+//   "message" |
+//   "keyadded" |
+//   "ready" |
+//   "keyerror" |
+//   "error";
 
 export interface IMediaKeySession
-  extends EventEmitter<MEDIA_KEY_SESSION_EVENTS, MediaKeyMessageEvent|Event>
+  extends EventEmitter<string, MediaKeyMessageEvent|Event>
 {
   // Attributes
   readonly closed: Promise<void>;
@@ -73,7 +72,7 @@ export interface IMockMediaKeys {
   setServerCertificate(setServerCertificate : ArrayBuffer|TypedArray) : Promise<void>;
 }
 
-interface IMockMediaKeysConstructor {
+export interface IMockMediaKeysConstructor {
   new(ks : string) : IMockMediaKeys;
 }
 
@@ -126,7 +125,7 @@ if (navigator.requestMediaKeySystemAccess) {
   if (HTMLVideoElement.prototype.webkitGenerateKeyRequest) {
 
     class WebkitMediaKeySession
-    extends EventEmitter<MEDIA_KEY_SESSION_EVENTS, MediaKeyMessageEvent|Event>
+    extends EventEmitter<string, MediaKeyMessageEvent|Event>
       implements IMediaKeySession
     {
       public readonly update : (
@@ -314,7 +313,7 @@ if (navigator.requestMediaKeySystemAccess) {
 
     // TODO implement MediaKeySession completely
     class IE11MediaKeySession
-    extends EventEmitter<MEDIA_KEY_SESSION_EVENTS, MediaKeyMessageEvent|Event>
+    extends EventEmitter<string, MediaKeyMessageEvent|Event>
       implements IMediaKeySession
     {
       public readonly update : (

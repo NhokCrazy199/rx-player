@@ -35,7 +35,7 @@ const {
   ABR_REGULAR_FACTOR,
 } = config;
 
-interface IRepresentationChooserClockTick {
+export interface IRepresentationChooserClockTick {
   bufferGap : number;
   position : number;
   bitrate : number|undefined;
@@ -52,9 +52,18 @@ interface IRequestInfo {
   }>;
 }
 
-type IRequest = IProgressRequest | IBeginRequest | IEndRequest;
+export interface IRCRequestBegin {
+  type: IBufferType;
+  event: "requestBegin";
+  value: {
+    id: string|number;
+    time: number;
+    duration: number;
+    requestTimestamp: number;
+  };
+}
 
-interface IProgressRequest {
+export interface IRCRequestProgress {
   type: IBufferType;
   event: "progress";
   value: {
@@ -66,18 +75,7 @@ interface IProgressRequest {
   };
 }
 
-interface IBeginRequest {
-  type: IBufferType;
-  event: "requestBegin";
-  value: {
-    id: string|number;
-    time: number;
-    duration: number;
-    requestTimestamp: number;
-  };
-}
-
-interface IEndRequest {
+export interface IRCRequestEnd {
   type: IBufferType;
   event: "requestEnd";
   value: {
@@ -90,7 +88,7 @@ interface IFilters {
   width?: number;
 }
 
-interface IRepresentationChooserOptions {
+export interface IRepresentationChooserOptions {
   limitWidth$?: Observable<number>;
   throttle$?: Observable<number>;
   initialBitrate?: number;
@@ -497,7 +495,7 @@ export default class RepresentationChooser {
    * @param {string|number} id
    * @param {Object} payload
    */
-  public addPendingRequest(id : string|number, payload: IBeginRequest) : void {
+  public addPendingRequest(id : string|number, payload: IRCRequestBegin) : void {
     if (this._currentRequests[id]) {
       if (__DEV__) {
         throw new Error("ABR: request already added.");
@@ -523,7 +521,7 @@ export default class RepresentationChooser {
    * @param {string|number} id
    * @param {Object} progress
    */
-  public addRequestProgress(id : string|number, progress: IProgressRequest) : void {
+  public addRequestProgress(id : string|number, progress: IRCRequestProgress) : void {
     if (!this._currentRequests[id]) {
       if (__DEV__) {
         throw new Error("ABR: progress for a request not added");
@@ -565,9 +563,3 @@ export default class RepresentationChooser {
     this.maxAutoBitrate$.complete();
   }
 }
-
-export {
-  IRequest,
-  IRepresentationChooserClockTick,
-  IRepresentationChooserOptions,
-};

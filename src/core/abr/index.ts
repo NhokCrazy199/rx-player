@@ -19,18 +19,30 @@ import { Subject } from "rxjs/Subject";
 import { Representation } from "../../manifest";
 import { IBufferType } from "../source_buffers";
 import RepresentationChooser, {
+  IRCRequestBegin,
+  IRCRequestProgress,
   IRepresentationChooserClockTick,
-  IRequest,
 } from "./representation_chooser";
 
-interface IMetricValue {
-  duration: number;
-  size: number;
+export interface IRCRequestEnd {
+  type: IBufferType;
+  event: "requestEnd";
+  value: {
+    id: string|number;
+  };
 }
 
-interface IMetric {
+export type IABRRequestEvent =
+  IRCRequestBegin |
+  IRCRequestProgress |
+  IRCRequestEnd;
+
+export interface IABRMetricEvent {
   type : IBufferType;
-  value : IMetricValue;
+  value : {
+    duration: number;
+    size: number;
+  };
 }
 
 // Options for every RepresentationChoosers
@@ -144,8 +156,8 @@ export default class ABRManager {
    * @param {ChooserOption} [options={}]
    */
   constructor(
-    requests$: Observable<Observable<IRequest>>,
-    metrics$: Observable<IMetric>,
+    requests$: Observable<Observable<IABRRequestEvent>>,
+    metrics$: Observable<IABRMetricEvent>,
     options : IRepresentationChoosersOptions = defaultChooserOptions
   ) {
     // Subject emitting and completing on dispose.
@@ -321,7 +333,5 @@ export default class ABRManager {
 }
 
 export {
-  IRequest as IABRRequest,
-  IMetric as IABRMetric,
   IRepresentationChoosersOptions as IABROptions,
 };

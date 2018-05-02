@@ -17,22 +17,24 @@
 import ISO_MAP_1_TO_3 from "./ISO_639-1_to_ISO_639-3";
 import ISO_MAP_2_TO_3 from "./ISO_639-2_to_ISO_639-3";
 
-interface IMinimalAudioTrackObject {
+export interface IMinimalAudioTrackObject {
   language: string;
   audioDescription?: boolean;
 }
 
-interface IMinimalTextTrackObject {
+export interface IMinimalTextTrackObject {
   language: string;
   closedCaption?: boolean;
 }
 
-interface INormalizedAudioTrackObject extends IMinimalAudioTrackObject {
+interface INormalizedAudioTrackObject {
+  language: string;
   normalized: string;
   audioDescription : boolean;
 }
 
-interface INormalizedTextTrackObject extends IMinimalTextTrackObject {
+interface INormalizedTextTrackObject {
+  language: string;
   normalized: string;
   closedCaption : boolean;
 }

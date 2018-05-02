@@ -16,12 +16,12 @@
 
 import log from "./log";
 
-type IListeners<T extends string, U> =
+export type listenerFunction<U> = (payload : U) => void;
+export type IListeners<T extends string, U> =
   Partial<Record<
     T,
     Array<listenerFunction<U>>
   >>;
-type listenerFunction<U> = (payload : U) => void;
 
 export default class EventEmitter<T extends string, U> {
   /**

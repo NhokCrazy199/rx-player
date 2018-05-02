@@ -19,8 +19,8 @@ import { CustomError } from "../../../errors";
 import { ITransportPipelines } from "../../../net";
 import { ISegmentLoaderArguments } from "../../../net/types";
 import {
-  IABRMetric,
-  IABRRequest
+  IABRMetricEvent,
+  IABRRequestEvent
 } from "../../abr";
 import { IBufferType } from "../../source_buffers";
 import { IPipelineOptions } from "../core_pipeline";
@@ -67,8 +67,8 @@ import createSegmentFetcher, {
  * ```
  */
 export default class SegmentPipelinesManager<T> {
-  private readonly _metrics$ : Subject<IABRMetric>;
-  private readonly _requestsInfos$ : Subject<Subject<IABRRequest>>;
+  private readonly _metrics$ : Subject<IABRMetricEvent>;
+  private readonly _requestsInfos$ : Subject<Subject<IABRRequestEvent>>;
   private readonly _warning$ : Subject<Error | CustomError>;
   private readonly _transport : ITransportPipelines;
   private readonly _prioritizer : ObservablePrioritizer<ISegmentResponse<T>>;
@@ -81,8 +81,8 @@ export default class SegmentPipelinesManager<T> {
    */
   constructor(
     transport : ITransportPipelines,
-    requestsInfos$ : Subject<Subject<IABRRequest>>,
-    metrics$ : Subject<IABRMetric>,
+    requestsInfos$ : Subject<Subject<IABRRequestEvent>>,
+    metrics$ : Subject<IABRMetricEvent>,
     warning : Subject<Error | CustomError>
   ) {
     this._transport = transport;

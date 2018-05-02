@@ -35,7 +35,7 @@ function debounce(fn : () => void, delay : number) : () => void {
   };
 }
 
-interface IBackoffOptions {
+export interface IBackoffOptions {
   retryDelay : number;
   totalRetry : number;
   shouldRetry? : (error : Error|CustomError) => boolean;

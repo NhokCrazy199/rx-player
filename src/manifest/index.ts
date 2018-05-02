@@ -31,8 +31,6 @@ import IRepresentationIndex, {
   StaticRepresentationIndex,
 } from "./representation_index";
 
-type ManifestAdaptations = Partial<Record<AdaptationType, Adaptation[]>>;
-
 interface ISupplementaryImageTrack {
   mimeType : string;
   url : string;
@@ -68,7 +66,7 @@ interface IManifestArguments {
 export default class Manifest {
   public readonly id : string;
   public readonly transport : string;
-  public readonly adaptations : ManifestAdaptations;
+  public readonly adaptations : Partial<Record<AdaptationType, Adaptation[]>>;
   public readonly periods : Period[];
   public readonly isLive : boolean;
   public uris : string[];

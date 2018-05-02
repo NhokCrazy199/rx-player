@@ -32,8 +32,8 @@ import Manifest, {
 } from "../../manifest";
 import { ITransportPipelines } from "../../net";
 import ABRManager, {
-  IABRMetric,
-  IABRRequest,
+  IABRMetricEvent,
+  IABRRequestEvent,
 } from "../abr";
 import BufferManager from "../buffer";
 import EMEManager, {
@@ -251,14 +251,14 @@ export default function Stream({
      * pipelines to the ABR manager.
      * @type {Subject}
      */
-    const network$ = new Subject<IABRMetric>();
+    const network$ = new Subject<IABRMetricEvent>();
 
     /**
      * Subject through which each request progression will be sent by the
      * segment pipelines to the ABR manager.
      * @type {Subject}
      */
-    const requestsInfos$ = new Subject<Subject<IABRRequest>>();
+    const requestsInfos$ = new Subject<Subject<IABRRequestEvent>>();
 
     /**
      * Creates pipelines for downloading segments.
