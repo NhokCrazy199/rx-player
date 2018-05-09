@@ -1,0 +1,323 @@
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+    
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fafbfc;
+}
+.content-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: 360px;
+    margin-bottom: 60px;
+    width: 1000px;
+    background-color: #fff;
+    padding: 5px 40px;
+}
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 750px;
+    padding-bottom: 50px
+}
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+h1, h2, h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+h1 {
+    font-size: 32px;
+}
+h2 {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+}
+h3 {
+    font-size: 23px;
+}
+h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+a:hover {
+    color: #071269;
+    text-decoration: underline;
+}
+a {
+    color: #071269;
+    text-decoration: none;
+}
+code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #484848;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+.language-js {
+    padding: 9.5px;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: #333;
+    background: #f8f8f8;
+}
+.emoji_warning {
+    color: #B71C1C;
+    padding-left: 4px;
+    padding-right: 3px;
+    font-size: 1.3em;
+}
+.sidebar {
+    height: 100%;
+    width: 360px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fafafa;
+    overflow-x: hidden;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    line-height: 2em;
+}
+.sidebar a {
+    color: #364149;
+}
+.sidebar a:hover {
+    text-decoration: none;
+    color: #008cff;
+}
+.sidebar ul {
+  list-style-type: none;
+}
+.header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+  </style>
+<style type="text/css">
+    
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+  </style>
+  <title>SegmentPipelineManager - RxPlayer Documentation</title>
+  </head>
+<body>
+  <div class="page-wrapper">
+    <div class="sidebar"><html><head></head><body><p><a href="#title-SegmentPipelineManager">SegmentPipelineManager</a></p>
+<ul>
+<li><a href="#chapter-Overview">Overview</a></li>
+<li><a href="#chapter-Priorization">Priorization</a></li>
+</ul>
+</body></html></div>
+    <div class="content-wrapper">
+      
+<div class="header">
+  <div class="header-content">
+    <a href="./index.html">API Documentation</a>
+    <a href="todo">Demo Page</a>
+  </div>
+</div>
+      <div class="content">
+        <html><head></head><body><p><a name="title-SegmentPipelineManager"></a></p>
+<h1>SegmentPipelineManager</h1>
+<p><a name="chapter-Overview"></a></p>
+<h2>Overview</h2>
+<p>The SegmentPipelineManager allows to easily perform Segment downloads for the
+rest of the code.
+This is the part of the code that interacts with the transport protocols -
+defined in <em>Net</em> - to load and parse media segments.</p>
+<p>To do so, the SegmentPipelineManager creates Pipelines of different types
+(example: a video or audio Pipeline) when you ask for it.
+Through those Pipelines, you can then schedule various segment requests with a
+given priority.</p>
+<p>The priority of this request is then corroborated with the
+priority of all requests currently pending in the SegmentPipelineManager (and
+not only with those on the current pipeline) to know when the request should
+effectively be done.</p>
+<p>During the lifecycle of the request, the Pipeline will communicate about data
+and metrics through several means - documented in the code.</p>
+<p><a name="chapter-Priorization"></a></p>
+<h2>Priorization</h2>
+<p>Each Segment request can be linked to a priorization number.
+Such number will indicate which segment is needed more immediately than other
+(lower it is, the higher the priority of the segment is).</p>
+<p>If the request has no priorization number, the lowest priorization number
+(the highest priority) will be set on it: <code>0</code></p>
+<p>Basically, any new request will have their priorization number compared to the
+one of the current request(s) done by the SegmentPipelineManager:</p>
+<ul>
+<li>
+<p>if no request is already pending, we perform the request immediately</p>
+</li>
+<li>
+<p>if (and only if) this priorization number is higher (so lower priority) than
+all current requests, this new request will be postponed to let the
+higher-priority ones finish.</p>
+</li>
+<li>
+<p>If a new request has a priorization number lower or equal than all current
+downloads, we perform the request immediately without interrupting the
+current, lower-priority ones.</p>
+</li>
+</ul>
+<p>The priority of a download can be updated at any time, until this request either
+has finished, was canceled or failed. The same rules apply when the priorization
+number is updated (if this request is already pending, we keep it going in any
+case).</p>
+</body></html>
+      </div>
+    </div>
+    
+  </div>
+</body>

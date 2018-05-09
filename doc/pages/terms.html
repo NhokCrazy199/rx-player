@@ -1,0 +1,456 @@
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+    
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fafbfc;
+}
+.content-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: 360px;
+    margin-bottom: 60px;
+    width: 1000px;
+    background-color: #fff;
+    padding: 5px 40px;
+}
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 750px;
+    padding-bottom: 50px
+}
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+h1, h2, h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+h1 {
+    font-size: 32px;
+}
+h2 {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+}
+h3 {
+    font-size: 23px;
+}
+h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+a:hover {
+    color: #071269;
+    text-decoration: underline;
+}
+a {
+    color: #071269;
+    text-decoration: none;
+}
+code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #484848;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+.language-js {
+    padding: 9.5px;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: #333;
+    background: #f8f8f8;
+}
+.emoji_warning {
+    color: #B71C1C;
+    padding-left: 4px;
+    padding-right: 3px;
+    font-size: 1.3em;
+}
+.sidebar {
+    height: 100%;
+    width: 360px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fafafa;
+    overflow-x: hidden;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    line-height: 2em;
+}
+.sidebar a {
+    color: #364149;
+}
+.sidebar a:hover {
+    text-decoration: none;
+    color: #008cff;
+}
+.sidebar ul {
+  list-style-type: none;
+}
+.header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+  </style>
+<style type="text/css">
+    
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+  </style>
+  <title>Terms and definitions - RxPlayer Documentation</title>
+  </head>
+<body>
+  <div class="page-wrapper">
+    <div class="sidebar"><html><head></head><body><p><a href="#title-Terms%20and%20definitions">Terms and definitions</a></p>
+<ul>
+<li><a href="#chapter-Overview">Overview</a></li>
+<li><a href="#chapter-Definitions">Definitions</a>
+<ul>
+<li><a href="#subchapter-Adaptation">Adaptation</a></li>
+<li><a href="#subchapter-Bitrate">Bitrate</a></li>
+<li><a href="#subchapter-Buffer">Buffer</a></li>
+<li><a href="#subchapter-Buffer%20Type">Buffer Type</a></li>
+<li><a href="#subchapter-Chunk">Chunk</a></li>
+<li><a href="#subchapter-Initialization%20Segment">Initialization Segment</a></li>
+<li><a href="#subchapter-Manifest">Manifest</a></li>
+<li><a href="#subchapter-Media%20Segment">Media Segment</a></li>
+<li><a href="#subchapter-Period">Period</a></li>
+<li><a href="#subchapter-Representation">Representation</a></li>
+</ul>
+</li>
+</ul>
+</body></html></div>
+    <div class="content-wrapper">
+      
+<div class="header">
+  <div class="header-content">
+    <a href="./index.html">API Documentation</a>
+    <a href="todo">Demo Page</a>
+  </div>
+</div>
+      <div class="content">
+        <html><head></head><body><p><a name="title-Terms%20and%20definitions"></a></p>
+<h1>Terms and definitions</h1>
+<p><a name="overview"></a>
+<a name="chapter-Overview"></a></p>
+<h2>Overview</h2>
+<p>As the RxPlayer manages multiple type of streaming technologies, which can use
+their own definition and terminology, we had to find a compromise and use our
+own terminology, which try to take the best from these.</p>
+<p>We here define various terms used in the documentation which might not be
+obvious right along.</p>
+<p><a name="definitions"></a>
+<a name="chapter-Definitions"></a></p>
+<h2>Definitions</h2>
+<p><a name="adaptation"></a>
+<a name="subchapter-Adaptation"></a></p>
+<h3>Adaptation</h3>
+<p>An Adaptation is an element of a <a href="#period">Period</a> (and by extension of the
+<a href="#manifest">Manifest</a>) which represents a single type of media.</p>
+<p>An adaptation can be for example any of those things:</p>
+<ul>
+<li>A video track</li>
+<li>A french audio track</li>
+<li>An italian text track</li>
+<li>A thumbnail track</li>
+<li>…</li>
+</ul>
+<p>Many Streaming Technology have this concept even though their name can change,
+an Adaptation is equivalent to:</p>
+<ul>
+<li>DASH’s <em>AdaptationSet</em></li>
+<li>Microsoft Smooth Streaming’s <em>StreamIndex</em></li>
+</ul>
+<p><a name="bitrate"></a>
+<a name="subchapter-Bitrate"></a></p>
+<h3>Bitrate</h3>
+<p>In the RxPlayer, a bitrate of a <a href="#representation">Representation</a> indicates the
+number of bits per second of content described by that Representation.</p>
+<p>For example, a video <a href="#adaptation">Adaptation</a> could have two Representation:</p>
+<ol>
+<li>one with a bitrate: <code>1.000.000</code></li>
+<li>the other with the bitrate: <code>500.000</code></li>
+</ol>
+<p>The first representation here will be considered to encode each second of
+content by a million bits (or 1Mb).</p>
+<p>The second one will represent the same content for the same time and duration
+for hald the bits (500kb).</p>
+<p>The second one is thus more attracting for situations where the current network
+conditions are too poor to play the first one smoothly. The catch is that most
+often a Representation with a lower bitrate will describe a content of a lower
+quality.</p>
+<p><a name="buffer"></a>
+<a name="subchapter-Buffer"></a></p>
+<h3>Buffer</h3>
+<p>RxPlayer’s Buffer can describe two things, depending on the context:</p>
+<ul>
+<li>
+<p>the part of a code downloading <a href="#segment">media segments</a> and doing what is
+needed to play them (and by extention, to play the content).</p>
+</li>
+<li>
+<p>The content downloaded (and thus “bufferized”) itself.</p>
+</li>
+</ul>
+<p><a name="type"></a>
+<a name="subchapter-Buffer%20Type"></a></p>
+<h3>Buffer Type</h3>
+<p>RxPlayer’s buffer types describe a single “type” of media.</p>
+<p>Example of such types are:</p>
+<ul>
+<li>“video”: which represents only the video content</li>
+<li>“audio”: the audio content without the video</li>
+<li>“text”: the subtitles, for example</li>
+<li>“image”: the thumbnail tracks.</li>
+</ul>
+<p>Those are called buffer types here (or simply “types”) as each type will have a
+single, uncorellated <a href="#buffer">Buffer</a>.</p>
+<p><a name="chunk"></a>
+<a name="subchapter-Chunk"></a></p>
+<h3>Chunk</h3>
+<p>Synonymous to <a href="#segment">Media Segment</a>.</p>
+<p><a name="init-segment"></a>
+<a name="subchapter-Initialization%20Segment"></a></p>
+<h3>Initialization Segment</h3>
+<p>An initialization Segment is a <a href="#segment">Media Segment</a>, which includes
+metadata necessary to play the other segment of the same
+<a href="#representation">Representation</a>.</p>
+<p>This is used by multiple Streaming Technologies to avoid inserting the same
+data in multiple Media Segments.</p>
+<p>As such initialization Segments are the first segment downloaded, to indicate
+the metadata of the following content.</p>
+<p><a name="manifest"></a>
+<a name="subchapter-Manifest"></a></p>
+<h3>Manifest</h3>
+<p>Document which describes the content you want to play.</p>
+<p>This is equivalent to the DASH’s <em>Media Presentation Description</em> (or <em>MPD</em>),
+the Microsoft Smooth Streaming’s Manifest and the HLS’ playlist.</p>
+<p>Such document can describe for example:</p>
+<ul>
+<li>multiple qualities for the same video or audio tracks</li>
+<li>multiple audio tracks in different languages</li>
+<li>presence of subtitles</li>
+</ul>
+<p>Note that this concept is only used in Streaming technologies.
+You won’t interact with a Manifest if you’re directly playing a MP4 or webM
+file.</p>
+<p><a name="segment"></a>
+<a name="subchapter-Media%20Segment"></a></p>
+<h3>Media Segment</h3>
+<p>A media segment (or simply segment), is a small chunk of media data.</p>
+<p>In many streaming technologies, a content is separated into multiple chunks of
+small duration (usually between 2 and 10 seconds).</p>
+<p>This allows, for reasons to long to detail here, to easily implements many
+features:</p>
+<ul>
+<li>live streaming,</li>
+<li>language switching</li>
+<li>adaptive streaming</li>
+</ul>
+<p>When you play a content with the RxPlayer, it will most of the time download
+media segments of different types (audio, video, text…) rather than the whole
+content a single time.</p>
+<p><a name="period"></a>
+<a name="subchapter-Period"></a></p>
+<h3>Period</h3>
+<p>A Period is an element of the <a href="#manifest">Manifest</a> which describes the media
+to play at a certain points in time.</p>
+<p>They are directly a DASH’ concept, called… <em>Period</em>.</p>
+<p>Simply put, it allows to set various types of content successively in the same
+manifest.</p>
+<p>For example, let’s take a manifest describing a live content with
+chronologically:</p>
+<ol>
+<li>an english TV Show</li>
+<li>an old italian film with subtitles</li>
+<li>an American film with closed captions.</li>
+</ol>
+<p>Those contents are drastically different (they have different languages, the
+american film might have more available bitrates than the old italian one).</p>
+<p>Moreover, even a library user might want to be able to know when the italian
+film is finished, to report about it immediately in a graphical interface.</p>
+<p>As such, they have to be considered separately - in a different Period:</p>
+<pre><code>        Period 1                Period 2                Period 3
+08h05              09h00                       10h30                now
+  |==================|===========================|===================|
+        TV Show               Italian Film            American film
+</code></pre>
+<p><a name="representation"></a>
+<a name="subchapter-Representation"></a></p>
+<h3>Representation</h3>
+<p>A Representation is an element of an <a href="#adaptation">Adaptation</a>, and by extension
+of the <a href="#manifest">Manifest</a>) that describes an interchangeable way to represent
+the parent Adaptation.</p>
+<p>For example, a video Adaptation can have several representation, each having
+its own bitrate, its own width or its own height.
+The idea behind a Representation is that it can be changed by any other one in
+the same Adaptation as the content plays.</p>
+<p>This is most often implemented to allow multiple bitrates for the same
+Adaptation, to be more flexible to poor network (low bandwidth) or computing
+(slow computer) conditions.</p>
+<p>A Representation has its equivalent in multiple Streaming technologies. It is
+roughly the same as:</p>
+<ul>
+<li>DASH’s <em>Representation</em></li>
+<li>Microsoft Smooth Streaming’s <em>QualityIndex</em></li>
+<li>HLS’ <em>variant</em></li>
+</ul>
+</body></html>
+      </div>
+    </div>
+    
+  </div>
+</body>

@@ -1,0 +1,357 @@
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+    
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fafbfc;
+}
+.content-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: 360px;
+    margin-bottom: 60px;
+    width: 1000px;
+    background-color: #fff;
+    padding: 5px 40px;
+}
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 750px;
+    padding-bottom: 50px
+}
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+h1, h2, h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+h1 {
+    font-size: 32px;
+}
+h2 {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+}
+h3 {
+    font-size: 23px;
+}
+h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+a:hover {
+    color: #071269;
+    text-decoration: underline;
+}
+a {
+    color: #071269;
+    text-decoration: none;
+}
+code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #484848;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+.language-js {
+    padding: 9.5px;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: #333;
+    background: #f8f8f8;
+}
+.emoji_warning {
+    color: #B71C1C;
+    padding-left: 4px;
+    padding-right: 3px;
+    font-size: 1.3em;
+}
+.sidebar {
+    height: 100%;
+    width: 360px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fafafa;
+    overflow-x: hidden;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    line-height: 2em;
+}
+.sidebar a {
+    color: #364149;
+}
+.sidebar a:hover {
+    text-decoration: none;
+    color: #008cff;
+}
+.sidebar ul {
+  list-style-type: none;
+}
+.header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+  </style>
+<style type="text/css">
+    
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+  </style>
+  <title>Images - RxPlayer Documentation</title>
+  </head>
+<body>
+  <div class="page-wrapper">
+    <div class="sidebar"><html><head></head><body><p><a href="#title-Images">Images</a></p>
+<ul>
+<li><a href="#chapter-Overview">Overview</a></li>
+<li><a href="#chapter-Format%20specification">Format specification</a></li>
+<li><a href="#chapter-Using%20bif%20for%20DASH%20and%20smooth%20contents">Using bif for DASH and smooth contents</a></li>
+<li><a href="#chapter-APIs">APIs</a>
+<ul>
+<li><a href="#subchapter-Structure">Structure</a></li>
+<li><a href="#subchapter-Example">Example</a></li>
+</ul>
+</li>
+</ul>
+</body></html></div>
+    <div class="content-wrapper">
+      
+<div class="header">
+  <div class="header-content">
+    <a href="./index.html">API Documentation</a>
+    <a href="todo">Demo Page</a>
+  </div>
+</div>
+      <div class="content">
+        <html><head></head><body><p><a name="title-Images"></a></p>
+<h1>Images</h1>
+<p><a name="overview"></a>
+<a name="chapter-Overview"></a></p>
+<h2>Overview</h2>
+<p>The Rx-player defines its own image playlist format, the <code>bif</code> format.</p>
+<p>This format allows to transmit playlist of thumbnails for linear (live) and
+non-linear (VOD) contents. The usecase is mostly to allow an improved “seeking”
+experience.</p>
+<p>It is understood and parsed by the player, which offers API to easily integrate
+those features in an application.</p>
+<p><a name="specification"></a>
+<a name="chapter-Format%20specification"></a></p>
+<h2>Format specification</h2>
+<p>This documentation is not yet finished. It will be very soon.</p>
+<p><a name="usage"></a>
+<a name="chapter-Using%20bif%20for%20DASH%20and%20smooth%20contents"></a></p>
+<h2>Using bif for DASH and smooth contents</h2>
+<p>This documentation is not yet finished. It will be very soon.</p>
+<p><a name="api"></a>
+<a name="chapter-APIs"></a></p>
+<h2>APIs</h2>
+<p>Images can be retreived through two APIs for now:</p>
+<ul>
+<li>
+<p><code>getImageTrackData</code>, which returns directly an array of objects describing
+the images in the playlist.</p>
+</li>
+<li>
+<p>the <code>imageTrackUpdate</code> event, which emits each time the image playlist is
+updated with the complete playlist as an array of objects in its <code>data</code>
+property.</p>
+</li>
+</ul>
+<p><a name="api-structure"></a>
+<a name="subchapter-Structure"></a></p>
+<h3>Structure</h3>
+<p>In both of those cases you receive an array of Objects, each defining a single
+image.</p>
+<p>An image object has the following property:</p>
+<ul>
+<li>
+<p><code>data</code> (<code>Uint8Array</code>): the raw data for the image object. You can
+display the corresponding image on your page thanks to the browser
+<code>window.URL.createObjectURL</code> API.</p>
+</li>
+<li>
+<p><code>ts</code> (<code>Number</code>): the position (relatively to the player’s
+<code>getPosition</code> API) the image should be displayed at, in milliseconds.</p>
+</li>
+<li>
+<p><code>duration</code> (<code>Number</code>): the duration, in s, until a new image can be
+considered.</p>
+</li>
+</ul>
+<p>This array should be ordered by <code>position</code>.</p>
+<p><a name="api-example"></a>
+<a name="subchapter-Example"></a></p>
+<h3>Example</h3>
+<p>Here is an example of setting the image corresponding to the current position,
+considering a player instance <code>player</code> and an image element with the id
+<code>current-image</code>:</p>
+<pre><code class="language-js"><span class="hljs-keyword">const</span> position = player.getPosition();
+<span class="hljs-keyword">const</span> imagePlaylist = player.getImageTrackData();
+
+<span class="hljs-keyword">const</span> currentImage = imagePlaylist.find(<span class="hljs-function"><span class="hljs-params">p</span> =&gt;</span> (p.ts / <span class="hljs-number">1000</span>) &gt; position);
+
+<span class="hljs-keyword">if</span> (currentImage) {
+  <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">new</span> Blob([currentImage], {<span class="hljs-attr">type</span>: <span class="hljs-string">"image/jpeg"</span>});
+  <span class="hljs-keyword">const</span> url = URL.createObjectURL(blob);
+  <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">"current-image"</span>).src = url;
+}
+</code></pre>
+</body></html>
+      </div>
+    </div>
+    
+  </div>
+</body>

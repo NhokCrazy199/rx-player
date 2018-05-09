@@ -1,0 +1,539 @@
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+    
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fafbfc;
+}
+.content-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: 360px;
+    margin-bottom: 60px;
+    width: 1000px;
+    background-color: #fff;
+    padding: 5px 40px;
+}
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 750px;
+    padding-bottom: 50px
+}
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+h1, h2, h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+h1 {
+    font-size: 32px;
+}
+h2 {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+}
+h3 {
+    font-size: 23px;
+}
+h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+a:hover {
+    color: #071269;
+    text-decoration: underline;
+}
+a {
+    color: #071269;
+    text-decoration: none;
+}
+code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #484848;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+.language-js {
+    padding: 9.5px;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: #333;
+    background: #f8f8f8;
+}
+.emoji_warning {
+    color: #B71C1C;
+    padding-left: 4px;
+    padding-right: 3px;
+    font-size: 1.3em;
+}
+.sidebar {
+    height: 100%;
+    width: 360px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fafafa;
+    overflow-x: hidden;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    line-height: 2em;
+}
+.sidebar a {
+    color: #364149;
+}
+.sidebar a:hover {
+    text-decoration: none;
+    color: #008cff;
+}
+.sidebar ul {
+  list-style-type: none;
+}
+.header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+  </style>
+<style type="text/css">
+    
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+  </style>
+  <title>Player errors and warnings - RxPlayer Documentation</title>
+  </head>
+<body>
+  <div class="page-wrapper">
+    <div class="sidebar"><html><head></head><body><p><a href="#title-Player%20errors%20and%20warnings">Player errors and warnings</a></p>
+<ul>
+<li><a href="#chapter-Overview">Overview</a></li>
+<li><a href="#chapter-Structure%20of%20an%20Error">Structure of an Error</a></li>
+<li><a href="#chapter-Types">Types</a>
+<ul>
+<li><a href="#subchapter-NETWORK_ERROR">NETWORK_ERROR</a></li>
+<li><a href="#subchapter-MEDIA_ERROR">MEDIA_ERROR</a></li>
+<li><a href="#subchapter-ENCRYPTED_MEDIA_ERROR">ENCRYPTED_MEDIA_ERROR</a></li>
+<li><a href="#subchapter-INDEX_ERROR">INDEX_ERROR</a></li>
+<li><a href="#subchapter-OTHER_ERROR">OTHER_ERROR</a></li>
+</ul>
+</li>
+</ul>
+</body></html></div>
+    <div class="content-wrapper">
+      
+<div class="header">
+  <div class="header-content">
+    <a href="./index.html">API Documentation</a>
+    <a href="todo">Demo Page</a>
+  </div>
+</div>
+      <div class="content">
+        <html><head></head><body><p><a name="title-Player%20errors%20and%20warnings"></a></p>
+<h1>Player errors and warnings</h1>
+<p><a name="overview"></a>
+<a name="chapter-Overview"></a></p>
+<h2>Overview</h2>
+<p>Various errors can be triggered when playing a media content. Those can happen
+when:</p>
+<ul>
+<li>The network is unreachable</li>
+<li>The codecs are not supported</li>
+<li>We have no mean to decrypt the data</li>
+<li>…</li>
+</ul>
+<p>Some errors can be fatal to content playback in which case they will stop the
+player, others act more as warnings and are more along the line of a minor
+problem notification.</p>
+<p>You can know if a fatal error interrupted your playback by:</p>
+<ul>
+<li>
+<p>adding an event listener to the <code>"error"</code> event (see the <a href="player_events.html">player events
+documentation</a>). This event listener will take the error
+directly in argument.</p>
+</li>
+<li>
+<p>calling the <code>getError</code> API if the current state is <code>STOPPED</code>. If
+different from <code>null</code>, it means that a fatal error happened (see the
+<a href="index.html#meth-getError">documentation for getError</a>).</p>
+</li>
+</ul>
+<p>You can also be warned of any non-fatal error by:</p>
+<ul>
+<li>adding an event listener to the <code>"warning"</code> event (see the <a href="player_events.html">player events
+documentation</a>). The event listener will take the
+non-fatal error directly in argument.</li>
+</ul>
+<p>All of those are in essence <code>Error</code> instances with added informations.</p>
+<p>Those supplementary informations are described in this page.</p>
+<p><a name="structure"></a>
+<a name="chapter-Structure%20of%20an%20Error"></a></p>
+<h2>Structure of an Error</h2>
+<p>Each of RxPlayer’s error objects have at least those properties:</p>
+<ul>
+<li>
+<p><code>type</code> (<code>string</code>): A large category for the error
+(e.g. <code>NETWORK_ERROR</code>, <code>ENCRYPTED_MEDIA_ERROR</code> …)</p>
+</li>
+<li>
+<p><code>code</code> (<code>string</code>): A set identification “code” for the error encountered</p>
+</li>
+<li>
+<p><code>message</code> (<code>string</code>): A displayable, human-readable, summary of the
+error.</p>
+</li>
+<li>
+<p><code>fatal</code> (<code>boolean</code>): If true, the error was fatal. Meaning that the
+playback was interrupted by it</p>
+</li>
+</ul>
+<p><a name="types"></a>
+<a name="chapter-Types"></a></p>
+<h2>Types</h2>
+<p>The types are the different strings you can have as the <code>type</code> property of an
+error.</p>
+<p>This chapter provides an exhaustive list of the possible type of error
+encountered.</p>
+<p><a name="types-network_error"></a>
+<a name="subchapter-NETWORK_ERROR"></a></p>
+<h3>NETWORK_ERROR</h3>
+<p>A NetworkError is any Network-related error (HTTP 404, request timeout…), they
+all have a <code>type</code> property equal to <code>"NETWORK_ERROR"</code>.</p>
+<h4>codes</h4>
+<p>A NetworkError can only have the following code (<code>code</code> property):</p>
+<ul>
+<li><code>"PIPELINE_LOAD_ERROR"</code>: the manifest or segment request failed.</li>
+</ul>
+<h4>more informations</h4>
+<p>A NetworkError provide much more infos than this code.</p>
+<p>Among its properties, you have:</p>
+<ul>
+<li>
+<p><code>url</code> (<code>string</code>): The url the request has been on</p>
+</li>
+<li>
+<p><code>xhr</code> (<code>XMLHttpRequest</code>): The xhr associated with the request</p>
+</li>
+<li>
+<p><code>status</code> (<code>Number</code>): Shortcut to the status code of the xhr.</p>
+</li>
+<li>
+<p><code>errorType</code> (<code>string</code>): Further precision about what went wrong.</p>
+<p>This string can either be:</p>
+<ul>
+<li><code>"TIMEOUT"</code>: The request timeouted.</li>
+<li><code>"ERROR_EVENT"</code>: The XMLHttpRequest has sent an error event</li>
+<li><code>"PARSE_ERROR"</code>: No data could have been extracted from this request</li>
+<li><code>"ERROR_HTTP_CODE"</code>: The request finished with a status code not in
+the 2xx range.</li>
+</ul>
+</li>
+</ul>
+<p><a name="types-media_error"></a>
+<a name="subchapter-MEDIA_ERROR"></a></p>
+<h3>MEDIA_ERROR</h3>
+<p>Error related to the media itself. It can both come from the player itself
+(manifest parsing) or from the browser itself (content playback).</p>
+<p>They all have a <code>type</code> property equal to <code>"MEDIA_ERROR"</code>.</p>
+<h4>codes</h4>
+<p>A MediaError can have the following codes (<code>code</code> property):</p>
+<ul>
+<li>
+<p><code>"BUFFER_APPEND_ERROR"</code>: A media segment could not have been added to the
+corresponding SourceBuffer. This often happens with malformed segments.</p>
+</li>
+<li>
+<p><code>"BUFFER_FULL_ERROR"</code>: The needed segment could not have been added
+because the SourceBuffer was full.</p>
+</li>
+<li>
+<p><code>"BUFFER_TYPE_UNKNOWN"</code>: The type of buffer considered (e.g. “audio” /
+“video” / “text”) has no SourceBuffer implementation in your build.</p>
+</li>
+<li>
+<p><code>"MANIFEST_INCOMPATIBLE_CODECS_ERROR"</code>: An “Adaptation” (DASH’s
+AdaptationSet or Smooth’s StreamIndex) has none of its “Representations”
+(read quality) in a supported codec.</p>
+</li>
+<li>
+<p><code>"MANIFEST_PARSE_ERROR"</code>: Generic error to signal than the Manifest could
+not be parsed.</p>
+</li>
+<li>
+<p><code>"MANIFEST_UNSUPPORTED_ADAPTATION_TYPE"</code>: One of the “Adaptation” (DASH’s
+AdaptationSet or Smooth’s StreamIndex) has a type (e.g. “audio”, “text” or
+“video” which is not understood by the RxPlayer).</p>
+</li>
+<li>
+<p><code>"MEDIA_ERR_ABORTED"</code>: A crucial browser-side fetching operation was
+aborted.</p>
+</li>
+<li>
+<p><code>"MEDIA_ERR_DECODE"</code>: A pushed segment/media could not be decoded by the
+browser. This happens most-of-all with malformed segments.</p>
+</li>
+<li>
+<p><code>"MEDIA_ERR_NETWORK"</code>: A browser-side request failed.</p>
+</li>
+<li>
+<p><code>"MEDIA_ERR_SRC_NOT_SUPPORTED"</code>: The media associated to the video element
+is not valid.</p>
+</li>
+<li>
+<p><code>"MEDIA_ERR_UNKNOWN"</code>: Media error impossible to characterize.</p>
+</li>
+<li>
+<p><code>"MEDIA_KEYS_NOT_SUPPORTED"</code>: The current browser has no MediaKeys
+implementation and the content is encrypted.</p>
+</li>
+<li>
+<p><code>"MEDIA_SOURCE_NOT_SUPPORTED"</code>: No known MediaSource API is supported by
+your browser and we need to create one.</p>
+</li>
+<li>
+<p><code>"MEDIA_STARTING_TIME_NOT_FOUND"</code>: The provided or calculated starting
+time was not found in the corresponding media.</p>
+</li>
+</ul>
+<p><a name="types-encrypted_media_error"></a>
+<a name="subchapter-ENCRYPTED_MEDIA_ERROR"></a></p>
+<h3>ENCRYPTED_MEDIA_ERROR</h3>
+<p>Those errors are linked to the Encrypted Media Extensions. They concern various
+DRM-related problems.</p>
+<p>They all have a <code>type</code> property equal to <code>"ENCRYPTED_MEDIA_ERROR"</code>.</p>
+<h4>codes</h4>
+<p>An EncryptedMediaError can have the following codes (<code>code</code> property):</p>
+<ul>
+<li>
+<p><code>"INCOMPATIBLE_KEYSYSTEMS"</code>: None of the provided key systems was
+compatible with the current browser.</p>
+</li>
+<li>
+<p><code>"INVALID_ENCRYPTED_EVENT"</code>: An encountered <code>encrypted</code> event was not
+valid.</p>
+</li>
+<li>
+<p><code>"INVALID_KEY_SYSTEM"</code>: One of the given key system was not accepted by
+the RxPlayer.</p>
+</li>
+<li>
+<p><code>"KEY_ERROR"</code>: The <code>MediaKeySession</code> emitted an error.</p>
+</li>
+<li>
+<p><code>"KEY_GENERATE_REQUEST_ERROR"</code>: An error happened when calling the
+<code>generateRequest</code> API to generate a challenge.</p>
+</li>
+<li>
+<p><code>"KEY_LOAD_ERROR"</code>: An error was returned by the code fetching the
+license.</p>
+</li>
+<li>
+<p><code>"KEY_LOAD_TIMEOUT"</code>: The request for fetching the license had a duration
+of more than 10 seconds.</p>
+</li>
+<li>
+<p><code>"KEY_STATUS_CHANGE_ERROR"</code>: An error was detected when the
+<code>MediaKeySession</code> emitted a keyStatuseschange event (e.g. the key
+became <code>"expired"</code>).</p>
+</li>
+<li>
+<p><code>"KEY_UPDATE_ERROR"</code>: An error was detected after a message (like a
+license was given to the CDM).</p>
+</li>
+<li>
+<p><code>"LICENSE_SERVER_CERTIFICATE_ERROR"</code>: The server certificate of a
+<code>MediaKeys</code> could not be set.</p>
+</li>
+<li>
+<p><code>"MEDIA_IS_ENCRYPTED_ERROR"</code>: The media is encrypted and no key system
+was given to the RxPlayer’s APIs.</p>
+</li>
+</ul>
+<p><a name="types-index_error"></a>
+<a name="subchapter-INDEX_ERROR"></a></p>
+<h3>INDEX_ERROR</h3>
+<p>Those errors are specific to the index, which is the place in the manifest
+describing how to access wanted segments.</p>
+<p>They all have a <code>type</code> property equal to <code>"INDEX_ERROR"</code>.</p>
+<h4>codes</h4>
+<p>An IndexERROR can only have the following code (<code>code</code> property):</p>
+<ul>
+<li><code>"OUT_OF_INDEX_ERROR"</code>: The wanted segments are currently out of the
+manifest’s index.</li>
+</ul>
+<p><a name="types-other_error"></a>
+<a name="subchapter-OTHER_ERROR"></a></p>
+<h3>OTHER_ERROR</h3>
+<p>Those errors are various other errors which does not belong to other types.</p>
+<p>They all have a <code>type</code> property equal to <code>"OTHER_ERROR"</code>.</p>
+<h4>codes</h4>
+<p>An OtherError can have the following codes (<code>code</code> property):</p>
+<ul>
+<li>
+<p><code>"PIPELINE_LOAD_ERROR"</code>: The manifest or segment request failed and the
+request has been done through a given callback (i.e. not the RxPlayer’s
+XMLHttpRequest implementation).</p>
+</li>
+<li>
+<p><code>"PIPELINE_PARSE_ERROR"</code>: The RxPlayer’s manifest or segment parsing logic
+failed. This is most likely due to a malformed manifest or segment.</p>
+</li>
+<li>
+<p><code>"NONE"</code>: The error cannot be characterized.</p>
+</li>
+</ul>
+</body></html>
+      </div>
+    </div>
+    
+  </div>
+</body>

@@ -1,0 +1,341 @@
+<head>
+  <meta charset="utf-8">
+  <style type="text/css">
+    
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fafbfc;
+}
+.content-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin-left: 360px;
+    margin-bottom: 60px;
+    width: 1000px;
+    background-color: #fff;
+    padding: 5px 40px;
+}
+.content {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 750px;
+    padding-bottom: 50px
+}
+.footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+}
+h1, h2, h3 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+h1 {
+    font-size: 32px;
+}
+h2 {
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+}
+h3 {
+    font-size: 23px;
+}
+h4 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+pre {
+    display: block;
+    padding: 9.5px;
+    margin: 0 0 10px;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
+    word-break: break-all;
+    word-wrap: break-word;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+a:hover {
+    color: #071269;
+    text-decoration: underline;
+}
+a {
+    color: #071269;
+    text-decoration: none;
+}
+code {
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    padding: 2px 4px;
+    font-size: 90%;
+    color: #484848;
+    background-color: #f9f2f4;
+    border-radius: 4px;
+}
+pre code {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    white-space: pre-wrap;
+    background-color: transparent;
+    border-radius: 0;
+}
+.language-js {
+    padding: 9.5px;
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    color: #333;
+    background: #f8f8f8;
+}
+.emoji_warning {
+    color: #B71C1C;
+    padding-left: 4px;
+    padding-right: 3px;
+    font-size: 1.3em;
+}
+.sidebar {
+    height: 100%;
+    width: 360px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #fafafa;
+    overflow-x: hidden;
+    padding: 5px 20px;
+    font-size: 1.2em;
+    line-height: 2em;
+}
+.sidebar a {
+    color: #364149;
+}
+.sidebar a:hover {
+    text-decoration: none;
+    color: #008cff;
+}
+.sidebar ul {
+  list-style-type: none;
+}
+.header {
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+}
+
+  </style>
+<style type="text/css">
+    
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+  </style>
+  <title>SegmentBookkeeper - RxPlayer Documentation</title>
+  </head>
+<body>
+  <div class="page-wrapper">
+    <div class="sidebar"><html><head></head><body><p><a href="#title-SegmentBookkeeper">SegmentBookkeeper</a></p>
+<ul>
+<li><a href="#chapter-Overview">Overview</a></li>
+<li><a href="#chapter-Implementation">Implementation</a></li>
+</ul>
+</body></html></div>
+    <div class="content-wrapper">
+      
+<div class="header">
+  <div class="header-content">
+    <a href="./index.html">API Documentation</a>
+    <a href="todo">Demo Page</a>
+  </div>
+</div>
+      <div class="content">
+        <html><head></head><body><p><a name="title-SegmentBookkeeper"></a></p>
+<h1>SegmentBookkeeper</h1>
+<p><a name="chapter-Overview"></a></p>
+<h2>Overview</h2>
+<p>The SegmentBookkeeper is a class which registers informations about every
+segments currently present in a SourceBuffer.
+The RxPlayer’s Stream creates one of them for each SourceBuffer created.</p>
+<p>This helps Buffers to avoid re-downloading segments unnecessarily and know when
+old one have been garbage collected.
+For example, we could decide not to re-download a segment in any of the
+following cases:</p>
+<ul>
+<li>
+<p>The same segment is already completely present in the SourceBuffer</p>
+</li>
+<li>
+<p>The same segment is partially present in the SourceBuffer (read: a part has
+been removed or garbage collected), but enough is still there for what we
+want to play</p>
+</li>
+<li>
+<p>Another segment is in the SourceBuffer at the wanted time, but it is the
+same content in a better or samey quality</p>
+</li>
+</ul>
+<p>On the contrary, we need to download the segment in the following cases:</p>
+<ul>
+<li>
+<p>No segment has been pushed at the given time</p>
+</li>
+<li>
+<p>A segment has been pushed, but at a lower quality than what we currently
+want</p>
+</li>
+<li>
+<p>A segment has been pushed at a sufficient quality, but we miss to much of it
+for our needs (too much has been garbage collected, removed or the segment
+is just too short).</p>
+</li>
+<li>
+<p>A segment has been pushed but is not exactly the content we want
+(example: it is in another language)</p>
+</li>
+</ul>
+<p>Thanks to the SegmentBookkeeper, we can infer on which situation we are at any time.</p>
+<p><a name="chapter-Implementation"></a></p>
+<h2>Implementation</h2>
+<p>The SegmentBookkeeper is merely a “Store”, meaning it will just store and
+process the data you give to it, without searching for the information itself.</p>
+<p>It contains in its state an array, the <em>inventory</em>, which stores every segments
+which should be present in the SourceBuffer in a chronological order.</p>
+<p>To construct this inventory, two methods can be used:</p>
+<ul>
+<li>
+<p>one to add informations about a new segment, which should have been pushed
+to the SourceBuffer</p>
+</li>
+<li>
+<p>one to synchronize the currently pushed segments with what the real
+SourceBuffer says it has buffered</p>
+</li>
+</ul>
+<p>After calling the synchronization one, you should be able to tell which parts of
+which segments are currently <em>living</em> in your SourceBuffer.</p>
+</body></html>
+      </div>
+    </div>
+    
+  </div>
+</body>
